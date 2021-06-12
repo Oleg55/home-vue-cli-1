@@ -1,20 +1,24 @@
 <template>
 	<div class="form-group" >
 			<label>{{ name }}</label>
-			<i v-if="activated"
-			class=""
-			v-bind:class = "alertClass">
-			</i>
-			<input 	type="text" class="form-control" 
+			<fa-icon	v-if="activated" 
+								v-bind:icon="icon" 
+								v-bind:class="iconClasses" />
+			<input 	type="text" 
+							class="form-control" 
 							v-on:input="onPress($event.target.value, i)"
-							v-bind:value="value"
-							>
-									
+							v-bind:value="value">							
 	</div>
 </template>
 
 <script>
+import { FontAwesomeIcon as FaIcon } from '@fortawesome/vue-fontawesome'
+
+
 export default {
+			components: {
+				FaIcon
+			},
 			props: ['name','value','valid'],
 			data: () => ({
 				activated: false
@@ -26,11 +30,11 @@ export default {
 						}
 					},
 			computed: {
-				alertClass() {
-					return {
-						'fas fa-circle text-danger': this.valid == false,
-						'fas fa-circle text-success': this.valid == true
-					}
+				icon() {
+					return this.valid ? 'check-circle' : 'exclamation-circle';
+				},
+				iconClasses(){
+					return this.valid ? 'text-success' : 'text-danger';
 				},
 
 			}

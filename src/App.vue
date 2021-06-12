@@ -1,32 +1,29 @@
 <template>
-<div>
+<div class="container mt-3">
 				<form>
-			
 				<div>
 					<app-progress 
 							v-bind:info="info"
-							v-bind:fieldsDone="fieldsDone"
-					>
+							v-bind:fieldsDone="fieldsDone">
 					</app-progress>
-
+				
 					<app-action 
 						v-for="(field, i) in info"
 						v-bind:name="field.name"
 						v-bind:value="field.value"
 						v-bind:valid="field.valid"
 						v-bind:key="i" 
-						v-on:step="	onInput($event,i)"
-					>
-	
+						v-on:step="	onInput($event,i)">
 					</app-action>
 				</div>
-				<button class="btn btn-primary" v-bind:disabled="!formReady">
+				<button class="btn btn-primary" 
+								v-bind:disabled="!formReady">
 					Send Data
 				</button>
 			</form>
 			<pre>{{ info }}</pre>
 				<div>
-					<table class="table table-bordered">
+					<table class="table table-bordered ">
 						<tr>
 							<td></td>
 							<td></td>
@@ -90,7 +87,6 @@
 				let sum = this.info.reduce(function(total, item){
 					return total + item.valid;
 				},0);
-
 				return sum;
 				},
 				formReady() {

@@ -1,11 +1,18 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+
+import { faCheckCircle, faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faCheckCircle, faExclamationCircle)
+
 createApp(App).mount('#app')
 
 import 'bootstrap/dist/css/bootstrap.css' 
 
-// import { library } from '@fortawesome/fontawesome-svg-core'
+
+
 
 // import { faStar as fasStar} from '@fortawesome/free-regular-svg-icons'
 
