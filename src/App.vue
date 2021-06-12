@@ -1,11 +1,14 @@
 <template>
 <div>
 				<form>
-				<div class="progress">
-					<div class="progress-bar" v-bind:style="progressStyles"></div>
-				</div>
+			
 				<div>
-				{{progressStyles}}
+					<app-progress 
+							v-bind:info="info"
+							v-bind:fieldsDone="fieldsDone"
+					>
+					</app-progress>
+
 					<app-action 
 						v-for="(field, i) in info"
 						v-bind:name="field.name"
@@ -40,13 +43,16 @@
 
 <script>
 
+	import AppProgress from '@/components/Progress.vue'
+
 	import AppAction from '@/components/Action.vue'
 
 
 	export default {
 
 			components: {
-				AppAction
+				AppAction,
+				AppProgress
 				// 'app-action': Action // или вот так
 			},
 			data: () => ({
@@ -90,11 +96,7 @@
 				formReady() {
 					return this.fieldsDone === this.info.length;
 				},
-				progressStyles() {
-					return {
-						'width': this.fieldsDone * (100 / this.info.length) + '%'
- 					};
-				}
+
 			},
 			methods: {
 				onInput(value, i) {
