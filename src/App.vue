@@ -1,10 +1,10 @@
 <template>
 <div class="container mt-3">
-				<form>
+				<form v-if="formDoneN" @submit.prevent="sendForm">
 				<div>
 					<app-progress 
-							v-bind:info="info"
-							v-bind:fieldsDone="fieldsDone">
+						v-bind:info="info"
+						v-bind:fieldsDone="fieldsDone">
 					</app-progress>
 				
 					<app-action 
@@ -15,22 +15,31 @@
 						v-bind:key="i" 
 						v-on:step="	onInput($event,i)">
 					</app-action>
-				</div>
-				<button class="btn btn-primary" 
-								v-bind:disabled="!formReady">
-					Send Data
-				</button>
-			</form>
-			<pre>{{ info }}</pre>
-				<div>
-					<table class="table table-bordered ">
-						<tr>
-							<td></td>
-							<td></td>
-						</tr>
-					</table>
-				</div>
 
+				</div>
+				<!-- <button class="btn btn-primary" 
+						v-bind:disabled="!formReady">
+					Send Data
+				</button> -->
+			<div>
+				<app-modal 
+					v-bind:info="info"
+					v-bind:fieldsDone="fieldsDone"
+					v-bind:formReady="formReady"
+					v-on:stepsec="formDone">
+
+				</app-modal>
+			</div>
+			</form>
+			<div v-else>
+				<h2>All Done</h2>
+			</div>
+			<pre>{{ info }}</pre>
+
+	  <div class="container-fluid" id="app">
+    <h1 class="animate__animated animate__bounce" 
+		style="color:#000">An animated element</h1>
+  	</div>
 
 
 </div>
@@ -44,12 +53,16 @@
 
 	import AppAction from '@/components/Action.vue'
 
+	
+	import AppModal from '@/components/Modal.vue'
+
 
 	export default {
 
 			components: {
 				AppAction,
-				AppProgress
+				AppProgress,
+				AppModal,
 				// 'app-action': Action // или вот так
 			},
 			data: () => ({
@@ -79,7 +92,9 @@
 						value: '',
 						pattern: /.+/
 					}
-				]
+				],
+				formDoneN: true,
+				showConfirm: false
 			}),
 			computed:{
 				fieldsDone() {
@@ -99,7 +114,21 @@
 					let field = this.info[i];
 					field.value = value.trim();
 					field.valid = 	field.pattern.test(field.value);
-				}
+				},
+				sendForm() {
+					if(this.formReady){
+						this.formDone = true;
+					}
+				},
+				formDone(yes){
+					if(yes === true){
+						console.log(yes);
+						this.formDoneN = false;
+					}else{
+						console.log('no');
+					}
+					
+				},
 			},
 			created() {
 				return this.info.forEach(element => {

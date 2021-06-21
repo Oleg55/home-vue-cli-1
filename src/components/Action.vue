@@ -1,13 +1,25 @@
 <template>
 	<div class="form-group" >
 			<label>{{ name }}</label>
-			<fa-icon	v-if="activated" 
+			  <transition
+					mode="out-in"
+					v-if="activated"
+					appear
+					appear-active-class="animate__animated animate__fadeIn animate__slow"
+					name="icon"
+					enter-active-class="animate__animated animate__flipInY animate__fast"
+					leave-active-class="animate__animated animate__flipOutY"
+				>
+				<fa-icon 
 								v-bind:icon="icon" 
-								v-bind:class="iconClasses" />
+								v-bind:class="iconClasses"
+								v-bind:key="icon"
+								/>
+			</transition>	
 			<input 	type="text" 
 							class="form-control" 
 							v-on:input="onPress($event.target.value, i)"
-							v-bind:value="value">							
+							v-bind:value="value">			
 	</div>
 </template>
 
@@ -21,7 +33,7 @@ export default {
 			},
 			props: ['name','value','valid'],
 			data: () => ({
-				activated: false
+				activated: false,
 			}),
 			methods: {
 							onPress(value) {

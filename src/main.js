@@ -7,9 +7,15 @@ import { faCheckCircle, faExclamationCircle } from '@fortawesome/free-solid-svg-
 
 library.add(faCheckCircle, faExclamationCircle)
 
+import 'animate.css';
+
 createApp(App).mount('#app')
 
-import 'bootstrap/dist/css/bootstrap.css' 
+
+//importing bootstrap 5
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.min.js";
+
 
 
 
